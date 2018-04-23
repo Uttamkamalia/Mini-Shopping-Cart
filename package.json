@@ -1,0 +1,40 @@
+{
+  "name": "extra",
+  "version": "0.0.0",
+  "private": false,
+  "description": "A mini online Shopping Cart",
+  "main": "index.js",
+  "scripts": {
+    "start": "node ./bin/www",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "uttam-kamalia",
+  "license": "ISC",
+  "engines": {
+    "node": "8.9.3",
+    "npm":"5.8.0"
+  },
+  "dependencies": {
+    "ejs": "*",
+    "body-parser": "*",
+    "bcryptjs": "^2.4.3",
+    "connect-flash": "*",
+    "cookie-parser": "~1.4.3",
+    "debug": "~2.6.9",
+    "express": "~4.16.0",
+    "express-messages": "*",
+    "express-session": "^1.15.6",
+    "express-validator": "*",
+    "http-errors": "~1.6.2",
+    "jade": "~1.11.0",
+    "mongodb": "*",
+    "mongoose": "*",
+    "morgan": "~1.9.0",
+    "multer": "*",
+    "path": "*",
+    "passport": "*",
+    "passport-http": "*",
+    "passport-local": "*",
+    "serve-favicon": "*"
+  }
+}

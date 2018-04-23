@@ -1,0 +1,87 @@
+<html>
+
+<head>
+    <title>Home Page</title>
+	
+
+    <script src="/javascripts/addData.js"></script>
+    <script src="/javascripts/bootstrap.min.js"></script>
+    <script src="/javascripts/jquery-3.2.1.min.js" type="text/javascript"></script>
+    <link href="/stylesheets/style.css" rel="stylesheet" type="text/css">
+    <link href="/stylesheets/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css"/>
+
+    <!--link rel="stylesheet" href="/stylesheets/font-awesome.min.css"/-->
+</head>
+
+<body >
+
+holllllll
+<%= username%>
+
+<% useritems.forEach(function(item){ %>
+  <li><%=item.name%></li>
+    <% }); %>
+
+   
+
+</body>
+
+</html>
+
+
+<!--
+
+<nav class="navbar navbar-inverse">
+                <div class="container-fluid">
+                  <div class="navbar-header">
+                    <a class="navbar-brand" href="/">UPV Sales</a>
+                  </div>
+              
+                  <ul class="nav navbar-nav navbar-right">
+                      <li id="username"><%=username%></li>
+                    <li><button href="" onclick="savetodb()"><span class="glyphicon glyphicon-shopping-cart"></span> Cart</button></li>
+                    <li><a id="table" href="/users/logout"><span class="glyphicon glyphicon-log-in"></span> LogOut</a></li>
+                  </ul>
+                </div>
+              </nav>
+
+
+    
+    
+    <div class="container-fluid main-content">
+        
+        <div class="row">
+            <div class="col-lg-12">
+                    <% result.forEach(function(item){ %>
+                  <div class="col-md-4   col-centered " id="<%=item.name%>">
+                        <div class="card">
+                            <img class="card-img-top image" src="/images/<%=item.name %>.jpg" alt="Cardimage cap">
+                            <div class="card-body" >
+                                <table>
+                                    <tr>
+                                    <td  style="font-weight: bold;"> <%=item.name%> </td>
+                                    <td  style="text-align: right; color: green; font-weight: bold;"><i class="fa fa-rupee"></i><h5 id="<%=item.name%>:cost"><%=item.cost%></h5> </td>
+                                    </tr>
+                                    <tr>
+                                            <span><button id="buttAdd" onclick="addItem">+</button></span>
+                                            <span class="btn"><%=item.quantity  %></span>
+                                            <span><button id="buttSub" onclick="subItem">-</button></span>
+                                            <span><button id="buttRem" onclick="remItem" style="color:red"><i class="fa fa-trash"></i></button></span>
+                                    </tr>
+                                </table>
+                
+    
+
+                                <a id="addDataButt" href="#addData"  onclick="addData(this)" class="btn btn-success "  style="margin-top:5px">Add to Cart</a>
+                            </div>
+                        </div>
+                  </div>
+                  <% }); %>
+              </div>
+            </div>
+        </div>
+
+        
+
+-->
