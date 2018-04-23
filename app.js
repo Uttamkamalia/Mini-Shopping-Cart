@@ -38,7 +38,7 @@ mongoose.connect('mongodb://uttam:temp@ds249249.mlab.com:49249/upvsales');
 
 
 var db=mongoose.connection;
-var port = process.env.PORT || 8080;
+var port = process.env.PORT || 3000;
 
 
 var index = require('./routes/index');
