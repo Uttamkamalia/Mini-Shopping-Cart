@@ -4,7 +4,6 @@ var username=document.getElementById("user").innerHTML;
 var itemcost ;
 
 function addItem(ele){
-    console.log("element parent:"+ele.parentNode.parentNode.parentNode.id);
     cardId = ele.parentNode.parentNode.parentNode.id;
 
     var query = "username="+username+"&itemname="+cardId;
@@ -28,7 +27,7 @@ function addItem(ele){
 };
 
 function subItem(ele){
-    console.log("element parent:"+ele.parentNode.parentNode.parentNode.id);
+    
     cardId = ele.parentNode.parentNode.parentNode.id;
 
     var query = "username="+username+"&itemname="+cardId;
@@ -52,7 +51,7 @@ function subItem(ele){
 };
 
 function remItem(ele){
-    console.log("element parent:"+ele.parentNode.parentNode.parentNode.id);
+    
     cardId = ele.parentNode.parentNode.parentNode.id;
     
     var query = "username="+username+"&itemname="+cardId;
@@ -78,7 +77,7 @@ function remItem(ele){
 
 };
 function remItem1(ele){
-    console.log("element parent:"+ele.parentNode.id);
+    
     cardId = ele.parentNode.id;
     cardId = cardId.substring(4,cardId.length);
     

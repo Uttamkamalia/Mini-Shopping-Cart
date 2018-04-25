@@ -14,24 +14,6 @@ var mongo=require("mongodb");
 var mongoose=require("mongoose");
 //mongoose.connect('mongodb://localhost/prac1');
 
-const options = {
-    useMongoClient: true,
-    autoIndex: false, // Don't build indexes
-    reconnectTries: 100, // Never stop trying to reconnect
-    reconnectInterval: 500, // Reconnect every 500ms
-    poolSize: 10, // Maintain up to 10 socket connections
-    // If not connected, return errors immediately rather than waiting for reconnect
-    bufferMaxEntries: 0
-  };
-
-  /*
-mongoose.connect('mongodb://uttam:temp@ds249249.mlab.com:49249/upvsales',options).then(
-  ()=>{
-    console.log("connected to mongoDB")},
- (err)=>{
-     console.log("err",err);
-});
-*/
 
 
 mongoose.connect('mongodb://uttam:temp@ds249249.mlab.com:49249/upvsales');
@@ -50,17 +32,19 @@ var app = express();
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
+
+
 //handle file uploads
 
 app.use(multer().any());
-//app.use(favicon(path.join(__dirname, 'public/icon/barn', 'favicon.ico')))
 
-
-// uncomment after placing your favicon in /public
 app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
+
+
+
 
 //handle express session
 
@@ -71,6 +55,8 @@ app.use(session({
 	resave:true
 
 }));
+
+
 //passport
 
 app.use(passport.initialize());
@@ -124,6 +110,9 @@ app.use(function(req, res, next) {
   next(err);
 });
 
+
+
+
 // error handler
 app.use(function(err, req, res, next) {
   // set locals, only providing error in development
@@ -134,6 +123,9 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.send("404: Page not found");
 });
+
+
+//Server Listening 
 
 app.listen(port,function()
 {

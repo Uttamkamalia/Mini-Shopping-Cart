@@ -13,6 +13,7 @@ var CurrentUser = "";
 
 
 // Middleware function to redirect authentication
+
 function ensureAuth(req,res,next){
 	if(req.isAuthenticated()){
 		console.log("Authenticated");
@@ -53,27 +54,20 @@ router.get('/dashboard', function(req, res, next) {
   });
 
 router.get('/home',ensureAuth,function(req,res){
-
-		
 	var itemsToDisp=[];
 	StoreItems.find({}, function(err,storeitems){
 		if(err){
 			console.log("Error while fetching items:",err);
 		}
 		else{
-			
-
 			User.findOne({username:CurrentUser},function(err,data){
 				if(err) {
 					console.log("Error while showing cart:",err);
 					throw err;
 				}
 				else{
-					console.log("show cart::",data.items);
 					var useritems = data.items;
 					
-					console.log("user items:",useritems);
-					storeitems.forEach(function(item){
 						var present = false;
 						for(var i=0;i<useritems.length;i++)
 						{
@@ -84,27 +78,14 @@ router.get('/home',ensureAuth,function(req,res){
 						}
 						if(!present){
 							itemsToDisp.push(item);
-							console.log("item added to push:: ",item);
 						}
-						
+					}
 					});
-					console.log("welcome:",CurrentUser);
+					console.log("Welcome:",CurrentUser);
 					res.render('home.ejs',{result:itemsToDisp,username:CurrentUser});
-
-				}
+			}
 			});
 
-
-
-			//console.log("items in store:",itemsToDisp);
-			
-		}
-		
-		
-	});
-	
-	
-	
 });
 
 
@@ -117,21 +98,7 @@ router.post('/register',function(req,res,next){
 	var password=req.body.pword;
 	var password2=req.body.cpword;
 
-	/*if(req.files){
-		console.log("Uploading file..");
-
-		var profilrImageOriginalName=req.files.image.originalname;
-		var profileImageName=req.files.image.name;
-		var profileimageMime=req.files.image.mimetype;
-		var profileimagePath=req.files.image.path;
-		var profileimageExt=req.files.image.extension;
-		var profileimagesize=req.files.image.size;
-	}else{
-
-		var profileImageName='noImage.png';
-
-	}*/
-
+	
 	req.checkBody('name','Name field is required').notEmpty();
 	req.checkBody('uname','Username field is required').notEmpty();
 	req.checkBody('email','Email field is required').notEmpty();
@@ -159,7 +126,7 @@ router.post('/register',function(req,res,next){
 			email:email,
 			username:username,
 			password:password,
-			//profileimage: profileImageName	
+			
 		});
 
 		User.createUser(newUser,function(err,user){
@@ -246,14 +213,13 @@ router.post('/addtocart',function(req,res){
 	var data = req.body;
 	var username = data.username;
 	var useritem = JSON.parse(data.userdata);
-	/*if (typeof(useritems) ==='undefined') useritems=[];
-	console.log("User Cart Recieved:::",username);*/
+	
 
 
 	User.findOne({username:username},function(err,data){
 		if(err) console.log("Error while fetching data:",err);
 		else{
-			console.log("Post item data:",useritem);
+			
 			data.items.push(useritem);
 			
 			
@@ -262,32 +228,25 @@ router.post('/addtocart',function(req,res){
 					console.log("Error while updating data...",err);
 					throw err;
 				}
-				console.log("Successfully modified:",data);
-				res.send("saved:"+useritem.name);
-				//res.redirect('/users/showcart');
 				
-
+				res.send("saved:"+useritem.name);
+				
 			});
-		
-
-			
 		}
 
 	});
 	
-
-
 });
 
 router.get('/showcart',function(req,res,next){
-	console.log("show caton");
+	
 	User.findOne({username:CurrentUser},function(err,data){
 		if(err) {
 			console.log("Error while showing cart:",err);
 			throw err;
 		}
 		else{
-			console.log("show cart::",data.items);
+			
 			var totalprice = 0;
 			data.items.forEach(function(item){
 				totalprice += item.cost * item.quantity;
@@ -335,7 +294,7 @@ router.get('/addItem',function(req,res,next){
 				}	
 			});	
 		}
-		console.log("sending quantity:",sendUpdate);
+		
 		res.send(JSON.stringify(sendUpdate));
 	});
 });
@@ -377,7 +336,7 @@ router.get('/subItem',function(req,res,next){
 				}	
 			});	
 		}
-		console.log("sending quantity:",sendUpdate);
+		
 		res.send(JSON.stringify(sendUpdate));
 	});
 });
@@ -412,7 +371,7 @@ router.get('/remItem',function(req,res,next){
 			sendUpdate.itemname =itemname;
 			sendUpdate.totalcost = totalcost;
 
-			console.log("items in crt ::",data.items);
+			
 			User.update({username:req.query.username},data,function(err,result){
 				if(err) {
 					console.log("Error while updating data...",err);
@@ -420,7 +379,7 @@ router.get('/remItem',function(req,res,next){
 				}	
 			});	
 		}
-		console.log("remving quantity:",sendUpdate);
+		
 		res.send(JSON.stringify(sendUpdate));
 	});
 });
