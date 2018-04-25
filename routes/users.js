@@ -45,7 +45,7 @@ router.get('/login',ensureLog,function(req, res, next) {
 });
 
 router.get('/register', function(req, res, next) {
-	res.render('registerpage.ejs',{"title":"Register"});
+	res.render('registerpage.ejs',{errors:[]});
   });
   
 
@@ -67,7 +67,7 @@ router.get('/home',ensureAuth,function(req,res){
 				}
 				else{
 					var useritems = data.items;
-					
+					storeitems.forEach(function(item){
 						var present = false;
 						for(var i=0;i<useritems.length;i++)
 						{
@@ -79,66 +79,101 @@ router.get('/home',ensureAuth,function(req,res){
 						if(!present){
 							itemsToDisp.push(item);
 						}
-					}
+					
 					});
 					console.log("Welcome:",CurrentUser);
 					res.render('home.ejs',{result:itemsToDisp,username:CurrentUser});
 			}
 			});
-
+		}
+});
 });
 
 
 
 router.post('/register',function(req,res,next){
-	console.log("registere::",req.body);
+	
 	var name=req.body.name;
 	var email=req.body.email;
 	var username=req.body.uname;
 	var password=req.body.pword;
 	var password2=req.body.cpword;
+	console.log("register data::",req.body);
+	User.find({}, function(err,user){
 
-	
-	req.checkBody('name','Name field is required').notEmpty();
-	req.checkBody('uname','Username field is required').notEmpty();
-	req.checkBody('email','Email field is required').notEmpty();
-	req.checkBody('email','Email is not valid').isEmail(); 
-	req.checkBody('pword','Password field is required').notEmpty();
-	req.checkBody('cpword','Passwords do not match').equals(req.body.pword);
-
-	var errors=req.validationErrors();
-
-	if(errors){
-		res.render('registerpage.ejs',{
-			errors:errors,
-			name:name,
-			email:email,
-			username:username,
-			password:password,
-			password2:password2,
-
-		});
-		console.log('register error:',errors);
-	}
-	else{
-		var newUser=new User({
-			name:name,
-			email:email,
-			username:username,
-			password:password,
+		if(err)
+		{
+			console.log("Error while checking,",err);
+			throw err;
+		}
+		else{
 			
-		});
-
-		User.createUser(newUser,function(err,user){
-			if(err) throw err;
-			console.log(user);
-		});
-
-		req.flash('succes','You are succesfully registered');
-		res.location('/users/login');
-		res.redirect('/users/login');
-	}
-
+			var present =false;
+			user.forEach(function(item){
+				if(item.username===username) present=true;
+			});
+			if(present)
+			{
+				console.log("user already exist.");
+				var existmsg = [{msg:"User already exist."}];
+				res.render('registerpage.ejs',{
+					errors:existmsg,
+					name:name,
+						email:email,
+						username:username,
+						password:password,
+						password2:password2,
+				});
+			}
+			else{
+	
+				console.log("New user");
+	
+				req.checkBody('name','Name field is required').notEmpty();
+				req.checkBody('uname','Username field is required').notEmpty();
+				req.checkBody('email','Email field is required').notEmpty();
+				req.checkBody('email','Email is not valid').isEmail(); 
+				req.checkBody('pword','Password field is required').notEmpty();
+				req.checkBody('cpword','Passwords do not match').equals(req.body.pword);
+	
+				var errors=req.validationErrors();
+	
+				if(errors){
+					res.render('registerpage.ejs',{
+						errors:errors,
+						name:name,
+						email:email,
+						username:username,
+						password:password,
+						password2:password2,
+	
+					});
+					console.log('register error:',errors);
+				}
+				else{
+					var newUser=new User({
+						name:name,
+						email:email,
+						username:username,
+						password:password,
+						
+					});
+	
+					User.createUser(newUser,function(err,user){
+						if(err) throw err;
+						console.log(user);
+					});
+	
+					req.flash('succes','You are succesfully registered');
+					res.location('/users/login');
+					res.redirect('/users/login');
+				}
+	
+	
+			}
+		}
+	});
+	
 });
 
 passport.serializeUser(function(user,done){

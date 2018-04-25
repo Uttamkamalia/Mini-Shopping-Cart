@@ -14,6 +14,8 @@ function storeData(ele)
     cardId = ele.parentNode.parentNode.parentNode.id;
     
     itemcost = document.getElementById(cardId +":cost").innerHTML;
+    itemcost = itemcost.substring(25,itemcost.length);
+    console.log("cost:::",itemcost);
 
     var item = {
         name:cardId,

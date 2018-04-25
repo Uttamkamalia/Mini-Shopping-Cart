@@ -27,6 +27,14 @@
                     <a class="navbar-brand" href="/">UPV Sales</a>
               </nav>
 
+              <div>
+                <ul>
+                  <% errors.forEach(function(item){ %>
+                    <li class="alert alert-danger"><%=item.msg%></li>
+                    <% }); %>
+                </ul>
+              </div>
+
 
 <div class="login-page">
         <div class="form">

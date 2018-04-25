@@ -53,13 +53,19 @@
                                 <table >
                                     <tr>
                                     <td id="itemname" style="font-weight: bold;"> <%=item.name%> </td>
-                                    <td  style="text-align: right; color: green; font-weight: bold;"><i class="fa fa-rupee"></i><h5 id="<%=item.name%>:cost"><%=item.cost%></h5> </td>
+                                        </tr>
+                                        <tr>
+                                    <td  style=" color: green; "><h4 style="font-weight: bold;" id="<%=item.name%>:cost"><i class="fa fa-inr"></i><%=item.cost%></h4> </td>
                                     </tr>
+                                    </table>
+                                    <table>
                                     <tr >
-                                            <button id="buttAdd" onclick="addItem(this)">+</button>
+                                            <button class="btn btn-danger"  style="font-weight:bold ; color:blue" id="buttAdd"   onclick="subItem(this)">-</button>
                                             <span id="<%=item.name%>:showquantity" class="btn"><%=item.quantity  %></span>
-                                            <button id="buttSub" onclick="subItem(this)">-</button>
-                                            <button id="buttRem" onclick="remItem(this)" style="color:red"><i class="fa fa-trash"></i></button>
+                                            <button class="btn btn-success" style="font-weight:bold ; color:blue ;" id="buttSub"  onclick="addItem(this)">+</button>
+                                           <!-- <a href="#" id="buttRem" onclick="remItem(this)" ><i style="color:blue" class="fa fa-trash"></i></a>-->
+                                          
+                                           <button onclick="remItem(this)"  class="btn" style="background-color:white; margin-left:85px"><span style="font-weight: bold;font-size:20px; color:blue" class="glyphicon glyphicon-trash"></span></button>
                                     </tr>
                                 </table>
                 
